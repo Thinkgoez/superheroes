@@ -1,0 +1,6 @@
+const TYPES = {
+    FETCH_HEROES: 'FETCH_HEROES',
+    FETCH_HEROES_SUCCESS: 'FETCH_HEROES_SUCCESS',
+}
+
+export default TYPES
