@@ -1,0 +1,6 @@
+const TYPES = {
+    PAGE_SIZE: 5,
+    FETCH_HEROES_SUCCESS: 'FETCH_HEROES_SUCCESS',
+}
+
+export default TYPES

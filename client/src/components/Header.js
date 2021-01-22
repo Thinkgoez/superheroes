@@ -1,15 +1,19 @@
 import React from 'react';
-import {AppBar, Toolbar, Typography, CssBaseline} from '@material-ui/core';
+import { AppBar, Toolbar, Typography } from '@material-ui/core';
+import { NavLink } from 'react-router-dom';
 
-export default function Header () {
+
+export default function Header() {
     return (
         <>
-        <CssBaseline />
             <AppBar position='static'>
                 <Toolbar>
-                    <Typography variant="h6" noWrap>
-                        Persistent drawer
-                    </Typography>
+                    <NavLink to='/'>
+                        <Typography variant="h6" noWrap>SuperHeroes site</Typography>
+                    </NavLink>
+                    <NavLink to='/heroes' style={{paddingLeft: '3vw'}}>
+                        <Typography variant="h6" noWrap>Heroes</Typography>
+                    </NavLink>
                 </Toolbar>
             </AppBar>
         </>

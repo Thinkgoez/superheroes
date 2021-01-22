@@ -1,13 +1,13 @@
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 
-import superheroReducer from './reducers/superheroReducer'
+import heroReducer from './reducers/heroReducer'
 import sagaWatcher from './sagas/rootSaga'
 
 const sagaMiddleware = createSagaMiddleware()
 
 const reducers = combineReducers({
-    superheroes: superheroReducer,
+    heroes: heroReducer,
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // delete before sending
