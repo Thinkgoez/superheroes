@@ -1,6 +1,8 @@
 // import axios from 'axios'
 
-import data from './fakeData'
+import Data from './fakeData'
+
+let fakeData = Data
 
 const currentHero = {
     // id: 'dsfsdfsdfdsfdsfsfsdfssf',
@@ -19,9 +21,27 @@ const currentHero = {
     origin_description: "Batman's secret identity is Bruce Wayne, a wealthy American industrialist. As a child, Bruce witnessed the murder of his parents, Dr. Thomas Wayne and Martha Wayne, which ultimately led him to craft the Batman persona and seek justice against criminals. He resides on the outskirts of Gotham City in his personal residence, Wayne Manor. Wayne averts suspicion by acting the part of a superficial playboy idly living off his family's fortune and the profits of Wayne Enterprises, his inherited conglomerate.[72][73] He supports philanthropic causes through his nonprofit Wayne Foundation, but is more widely known as a celebrity socialite.[74] In public, he frequently appears in the company of high-status women, which encourages tabloid gossip. Although Bruce Wayne leads an active romantic life, his vigilante activities as Batman account for most of his time",
     superpowers: 'eeeesolar energy absorption and healing factor, solar flare and heat vision, solar invulnerability, flight…',
     catch_phrase: "Batman",
+    poster_image: 'https://upload.wikimedia.org/wikipedia/ru/a/a2/Batman_Jim_Lee.jpg',
     images: [
+        'https://cdn2.unrealengine.com/Diesel%2Fproductv2%2Fbatman-arkham-knight%2FEGS_WB_Batman_Arkham_Knight_G1_1920x1080_19_0911-1920x1080-1d69e15f00cb5ab57249f208f1f8f45d52cbbc59.jpg?h=1080&resize=1&w=1920',
+        'https://cdn2.unrealengine.com/Diesel%2Fproductv2%2Fbatman-arkham-knight%2FEGS_WB_Batman_Arkham_Knight_G1_1920x1080_19_0911-1920x1080-1d69e15f00cb5ab57249f208f1f8f45d52cbbc59.jpg?h=1080&resize=1&w=1920',
+        'https://i2.wp.com/batman-news.com/wp-content/uploads/2019/07/Batman-Comic-Generic-07.jpg?fit=1400%2C700&quality=80&strip=info&ssl=1',
         'https://upload.wikimedia.org/wikipedia/ru/a/a2/Batman_Jim_Lee.jpg',
         'https://cdn2.unrealengine.com/Diesel%2Fproductv2%2Fbatman-arkham-knight%2FEGS_WB_Batman_Arkham_Knight_G1_1920x1080_19_0911-1920x1080-1d69e15f00cb5ab57249f208f1f8f45d52cbbc59.jpg?h=1080&resize=1&w=1920',
+        'https://cdn2.unrealengine.com/Diesel%2Fproductv2%2Fbatman-arkham-knight%2FEGS_WB_Batman_Arkham_Knight_G1_1920x1080_19_0911-1920x1080-1d69e15f00cb5ab57249f208f1f8f45d52cbbc59.jpg?h=1080&resize=1&w=1920',
+        'https://i2.wp.com/batman-news.com/wp-content/uploads/2019/07/Batman-Comic-Generic-07.jpg?fit=1400%2C700&quality=80&strip=info&ssl=1',
+        'https://upload.wikimedia.org/wikipedia/ru/a/a2/Batman_Jim_Lee.jpg',
+        'https://cdn2.unrealengine.com/Diesel%2Fproductv2%2Fbatman-arkham-knight%2FEGS_WB_Batman_Arkham_Knight_G1_1920x1080_19_0911-1920x1080-1d69e15f00cb5ab57249f208f1f8f45d52cbbc59.jpg?h=1080&resize=1&w=1920',
+        'https://cdn2.unrealengine.com/Diesel%2Fproductv2%2Fbatman-arkham-knight%2FEGS_WB_Batman_Arkham_Knight_G1_1920x1080_19_0911-1920x1080-1d69e15f00cb5ab57249f208f1f8f45d52cbbc59.jpg?h=1080&resize=1&w=1920',
+        'https://i2.wp.com/batman-news.com/wp-content/uploads/2019/07/Batman-Comic-Generic-07.jpg?fit=1400%2C700&quality=80&strip=info&ssl=1',
+        'https://upload.wikimedia.org/wikipedia/ru/a/a2/Batman_Jim_Lee.jpg',
+        'https://cdn2.unrealengine.com/Diesel%2Fproductv2%2Fbatman-arkham-knight%2FEGS_WB_Batman_Arkham_Knight_G1_1920x1080_19_0911-1920x1080-1d69e15f00cb5ab57249f208f1f8f45d52cbbc59.jpg?h=1080&resize=1&w=1920',
+        'https://cdn2.unrealengine.com/Diesel%2Fproductv2%2Fbatman-arkham-knight%2FEGS_WB_Batman_Arkham_Knight_G1_1920x1080_19_0911-1920x1080-1d69e15f00cb5ab57249f208f1f8f45d52cbbc59.jpg?h=1080&resize=1&w=1920',
+        'https://i2.wp.com/batman-news.com/wp-content/uploads/2019/07/Batman-Comic-Generic-07.jpg?fit=1400%2C700&quality=80&strip=info&ssl=1',
+        'https://upload.wikimedia.org/wikipedia/ru/a/a2/Batman_Jim_Lee.jpg',
+        'https://cdn2.unrealengine.com/Diesel%2Fproductv2%2Fbatman-arkham-knight%2FEGS_WB_Batman_Arkham_Knight_G1_1920x1080_19_0911-1920x1080-1d69e15f00cb5ab57249f208f1f8f45d52cbbc59.jpg?h=1080&resize=1&w=1920',
+        'https://cdn2.unrealengine.com/Diesel%2Fproductv2%2Fbatman-arkham-knight%2FEGS_WB_Batman_Arkham_Knight_G1_1920x1080_19_0911-1920x1080-1d69e15f00cb5ab57249f208f1f8f45d52cbbc59.jpg?h=1080&resize=1&w=1920',
+        'https://i2.wp.com/batman-news.com/wp-content/uploads/2019/07/Batman-Comic-Generic-07.jpg?fit=1400%2C700&quality=80&strip=info&ssl=1',
     ]
 }
 
@@ -33,12 +53,33 @@ const currentHero = {
 const API = {
     fetchHeroes: ({ pageNumber, pageSize }) => {
         // return instance.get(`heroes?page=${pageNumber}&count=${pageSize}`)
-        return data
+        return fakeData
     },
     getHero: ({ id }) => {
         // return instance.get(`heroes?page=${pageNumber}&count=${pageSize}`)
         return currentHero
-    }
+    },
+    updateHeroData: (data) => {
+        // return instance.get(`heroes?page=${pageNumber}&count=${pageSize}`)
+        console.log(data);
+        return {...currentHero, ...data}
+    },
+    deleteHero: (data) => {
+        // return instance.delete(`hero/${data}`)
+        // console.log(data);
+        // const newData = fakeData.filter(hero => hero.id !== data)
+        // return newData
+        fakeData = fakeData.filter(hero=> hero.id !== data)
+        return true
+    },
+    deleteImage: (data) => {
+        // return instance.delete(`hero/${data}`)
+        // console.log(data);
+        // const newData = fakeData.filter(hero => hero.id !== data)
+        // return newData
+        fakeData = fakeData.filter(hero=> hero.id !== data)
+        return true
+    },
 }
 
 export default API

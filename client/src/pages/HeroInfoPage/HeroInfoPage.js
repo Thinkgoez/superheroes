@@ -1,15 +1,17 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { Paper, Typography } from '@material-ui/core'
+import { Paper } from '@material-ui/core'
 
-import { getHero } from '../../redux/reducers/heroReducer'
+import { getHero, removeHero, updateHeroData } from '../../redux/reducers/heroReducer'
 import Preloader from '../../components/Preloader/Preloader'
+import MainInfoDataForm from './MainInfo/MainInfoDataForm'
+import MainInfoData from './MainInfo/MainInfoData'
+import Gallery from './Gallery/Gallery'
 import classes from './HeroInfo.module.css'
 
 
-
-function HeroInfoPage({ getCurrentHero, currentHero, isFetching, ...props }) {
+function HeroInfoPage({ getCurrentHero, currentHero, isFetching, updateHeroData, removeHero }) {
     const { id } = useParams()
 
     useEffect(() => {
@@ -19,30 +21,34 @@ function HeroInfoPage({ getCurrentHero, currentHero, isFetching, ...props }) {
     if (isFetching || !currentHero) return <Preloader />
     return (
         <div className={classes.root}>
-            <MainInfo heroInfo={currentHero} />
-            <Paper className={classes.imagesBlock} variant="outlined" square />
+            <MainInfo heroInfo={currentHero} updateHeroData={updateHeroData} removeHero={removeHero} />
+            <Gallery images={currentHero.images} className={classes.gallery}/>
         </div>
     )
 }
 
-function MainInfo({ heroInfo }) {
+function MainInfo({ heroInfo, updateHeroData, removeHero }) {
+    const [isEditMode, setEditMode] = useState(false)
+    
+    const openEditMode = () => {
+        setEditMode(true)
+    }
+    const closeEditMode = () => {
+        setEditMode(false)
+    }
+
+    const handleRemoveHero = () => {
+        removeHero(heroInfo.id)
+    }
+    const handleSubmit = (data) => {
+        closeEditMode()
+        updateHeroData(data)
+    }
     return (
         <Paper variant="outlined" className={classes.mainInfoBlock}>
-            <div className={classes.topInfo}>
-                <img src={heroInfo.images[0]} className={classes.posterImage} alt={heroInfo.nickname} />
-                <div className={classes.shortInfo}>
-                    <h2>{heroInfo.nickname}</h2>
-                    <div className={classes.description}>
-                        <span><Typography variant='h6'><b>Real name: </b>{heroInfo.real_name}</Typography></span>
-                        <span><Typography variant='body1'><b>Catch phrase: </b>{heroInfo.catch_phrase}</Typography></span>
-                        <span><Typography variant='body1'><b>Superpowers: </b>{heroInfo.superpowers}</Typography></span>
-                    </div>
-                </div>
-            </div>
-            <div className={classes.bottomInfo}>
-                <span>
-                    <Typography variant='body1'><b>Descriptions: </b>{heroInfo.origin_description}</Typography></span>
-            </div>
+            {isEditMode
+                ? <MainInfoDataForm handleSubmit={handleSubmit} heroInfo={heroInfo} handleRemoveHero={handleRemoveHero} />
+                : <MainInfoData openEditMode={openEditMode} heroInfo={heroInfo} />}
         </Paper>
     )
 }
@@ -52,4 +58,4 @@ const mapStateToProps = (state) => ({
     isFetching: state.heroes.isFetching
 })
 
-export default connect(mapStateToProps, { getCurrentHero: getHero })(HeroInfoPage)
+export default connect(mapStateToProps, { getCurrentHero: getHero, updateHeroData, removeHero })(HeroInfoPage)

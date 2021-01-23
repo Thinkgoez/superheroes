@@ -31,6 +31,16 @@ export default function heroReducer(state = initialState, action) {
         case ACTION.REQUEST_ERROR: {
             return {...state, error: action.data};
         }
+        case ACTION.UPDATE_HERO_SUCCESS: {
+            return {...state, currentHero: action.data};
+        }
+        case ACTION.DELETE_HERO_SUCCESS: {
+            return {...state, currentHero: {}, heroes: state.heroes.filter(hero => hero.id !== action.data)};
+        }
+        case ACTION.REQUEST_DELETE_IMAGE: {
+            console.log(state.heroes.filter(hero => hero.id !== action.data));
+            return {...state, currentHero: {}, heroes: state.currentHero.images.filter(image => image.id !== action.data)};
+        }
         default:
             return state;
     }
@@ -41,4 +51,13 @@ export const requestHeroes = (pageNumber = 1, pageSize = CONSTS.PAGE_SIZE) => ({
 })
 export const getHero = (id) => ({
     type: ACTION.REQUEST_HERO, data: id
+})
+export const updateHeroData = (data) => ({
+    type: ACTION.REQUEST_UPDATE_HERO_DATA, data
+})
+export const removeHero = (data) => ({
+    type: ACTION.REQUEST_DELETE_HERO, data
+})
+export const removeImage = (data) => ({
+    type: ACTION.REQUEST_DELETE_IMAGE, data
 })

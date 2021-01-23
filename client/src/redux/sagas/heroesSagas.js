@@ -24,3 +24,33 @@ export function* getHeroSaga(action) {
         yield put({ type: ACTIONS.REQUEST_ERROR, data: error })
     }
 }
+export function* updateHeroSaga(action) {
+    try {
+        yield put({ type: ACTIONS.SET_FETCHING_STATUS, data: true })
+        const res = yield call(API.updateHeroData, action.data)
+        yield put({ type: ACTIONS.UPDATE_HERO_SUCCESS, data: res })
+        yield put({ type: ACTIONS.SET_FETCHING_STATUS, data: false })
+    } catch (error) {
+        yield put({ type: ACTIONS.REQUEST_ERROR, data: error })
+    }
+}
+export function* deleteHeroSaga(action) {
+    try {
+        yield put({ type: ACTIONS.SET_FETCHING_STATUS, data: true })
+        yield call(API.deleteHero, action.data)
+        yield put({ type: ACTIONS.DELETE_HERO_SUCCESS, data: action.data})
+        yield put({ type: ACTIONS.SET_FETCHING_STATUS, data: false })
+    } catch (error) {
+        yield put({ type: ACTIONS.REQUEST_ERROR, data: error })
+    }
+}
+export function* deleteImageSaga(action) {
+    try {
+        yield put({ type: ACTIONS.SET_FETCHING_STATUS, data: true })
+        yield call(API.deleteImage, action.data)
+        yield put({ type: ACTIONS.DELETE_IMAGE_SUCCESS, data: action.data})
+        yield put({ type: ACTIONS.SET_FETCHING_STATUS, data: false })
+    } catch (error) {
+        yield put({ type: ACTIONS.REQUEST_ERROR, data: error })
+    }
+}
