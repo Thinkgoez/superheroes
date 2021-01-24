@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import { useEffect } from 'react'
 import { connect } from 'react-redux'
 
 import { requestHeroes } from '../../redux/reducers/heroReducer'
@@ -6,27 +6,31 @@ import HeroesPage from './HeroesPage'
 import Preloader from '../../components/Preloader/Preloader'
 
 
-class HeroesPageContainer extends Component {
-    componentDidMount() {
-        this.props.requestHeroes(this.props.currentPage, this.props.pageSize)
-    }
+// class HeroesPageContainer extends Component {
+// componentDidMount() {
+//     this.props.requestHeroes(this.props.currentPage, this.props.pageSize)
+// }
+function HeroesPageContainer({ currentPage, pageSize, requestHeroes, ...props }) {
+    useEffect(() => {
+        requestHeroes(currentPage, pageSize)
+    }, [currentPage, pageSize, requestHeroes])
 
-    onPageChanged = (pageNumber) => {
-        this.props.requestHeroes(pageNumber, this.props.pageSize)
+    const onPageChanged = (pageNumber) => {
+        requestHeroes(pageNumber, pageSize)
     }
-    render() {
-        return (
-            <div>
-                {this.props.isFetching ? <Preloader /> : <HeroesPage
-                    currentPage={this.props.currentPage}
-                    heroes={this.props.heroes}
-                    totalHeroesCount={this.props.totalHeroesCount}
-                    pageSize={this.props.pageSize}
-                    onPageChanged={this.onPageChanged}
-                />}
-            </div>
-        )
-    }
+    // render() {
+    return (
+        <div>
+            {props.isFetching ? <Preloader /> : <HeroesPage
+                currentPage={currentPage}
+                heroes={props.heroes}
+                totalHeroesCount={props.totalHeroesCount}
+                pageSize={pageSize}
+                onPageChanged={onPageChanged}
+            />}
+        </div>
+    )
+    // }
 }
 
 

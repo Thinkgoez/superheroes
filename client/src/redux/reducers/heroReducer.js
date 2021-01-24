@@ -1,5 +1,5 @@
 import ACTION from '../actionTypes';
-import CONSTS from '../constants'
+import CONSTS from '../../constants'
 
 const initialState = {
     heroes: [],
@@ -14,32 +14,48 @@ const initialState = {
 export default function heroReducer(state = initialState, action) {
     switch (action.type) {
         case ACTION.FETCH_HEROES_SUCCESS: {
-            return {...state, heroes: action.data};
+            return { ...state, heroes: action.data.data, totalHeroesCount: action.data.totalCount };
         }
         case ACTION.SET_CURRENT_PAGE: {
-            return {...state, currentPage: action.data};
+            return { ...state, currentPage: action.data };
         }
         case ACTION.GET_HERO_SUCCESS: {
-            return {...state, currentHero: action.data};
+            return { ...state, currentHero: action.data };
         }
         case ACTION.SET_TOTAL_SIZE: {
-            return {...state, totalHeroesCount: action.data};
+            alert('set total sizee')
+            return { ...state, totalHeroesCount: action.data };
         }
         case ACTION.SET_FETCHING_STATUS: {
-            return {...state, isFetching: action.data};
+            return { ...state, isFetching: action.data };
         }
         case ACTION.REQUEST_ERROR: {
-            return {...state, error: action.data};
+            return { ...state, error: action.data };
         }
         case ACTION.UPDATE_HERO_SUCCESS: {
-            return {...state, currentHero: action.data};
+            return { ...state, currentHero: action.data };
         }
         case ACTION.DELETE_HERO_SUCCESS: {
-            return {...state, currentHero: {}, heroes: state.heroes.filter(hero => hero.id !== action.data)};
+            return { ...state, currentHero: {}, heroes: state.heroes.filter(hero => hero.id !== action.data) };
         }
-        case ACTION.REQUEST_DELETE_IMAGE: {
-            console.log(state.heroes.filter(hero => hero.id !== action.data));
-            return {...state, currentHero: {}, heroes: state.currentHero.images.filter(image => image.id !== action.data)};
+        case ACTION.DELETE_IMAGES_SUCCESS: {
+            console.log(state.currentHero.images.filter((image) => !action.data.includes(image)));
+            return {
+                ...state,
+                currentHero: {
+                    ...state.currentHero,
+                    images: state.currentHero.images.filter((image) => !action.data.includes(image))
+                }
+            };
+        }
+        case ACTION.ADD_IMAGE_SUCCESS: {
+            return {
+                ...state,
+                currentHero: {
+                    ...state.currentHero,
+                    images: [...state.currentHero.images].concat(action.data)
+                }
+            };
         }
         default:
             return state;
@@ -58,6 +74,12 @@ export const updateHeroData = (data) => ({
 export const removeHero = (data) => ({
     type: ACTION.REQUEST_DELETE_HERO, data
 })
-export const removeImage = (data) => ({
-    type: ACTION.REQUEST_DELETE_IMAGE, data
+export const removeImages = (data) => ({
+    type: ACTION.REQUEST_DELETE_IMAGES, data
+})
+export const addNewImage = (data) => ({
+    type: ACTION.REQUEST_ADD_IMAGE, data
+})
+export const createHero = (data) => ({
+    type: ACTION.REQUEST_CREATE_HERO, data
 })

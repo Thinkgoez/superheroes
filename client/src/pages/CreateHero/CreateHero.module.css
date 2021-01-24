@@ -1,0 +1,147 @@
+.root{
+    display: flex;
+    justify-content: space-between;
+}
+
+.root > div{
+    padding: 15px;
+    height: fit-content;
+    border-radius: 15px;
+    -webkit-box-shadow: 2px -1px 28px -1px rgba(0,0,0,0.57); 
+    box-shadow: 2px -1px 28px -1px rgba(0,0,0,0.57);
+    box-sizing: border-box;
+    margin-bottom: 10vh;
+    
+}
+
+.mainInfoBlock{
+    width: 65%;
+}
+.topInfo{
+    display: flex;
+    justify-content: space-between;
+    height: auto;
+    position: relative;
+}
+
+.imageWrapper{
+    width: 40%;
+    position: relative;
+}
+.posterImage{
+    width: 100%;
+    /* width: 40%; */
+    border-radius: 10px;
+    
+}
+
+.description{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 80%;
+}
+
+.description span{
+    margin: 10px 0;
+}
+
+.shortInfo{
+    width: 55%;
+}
+.shortInfo span{
+    width: 90%;
+}
+
+.shortInfo h2{
+    text-align: center;
+}
+
+.optionsButtonGroup{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.optionsButtonGroup button{
+    outline: 0;
+    transition: all .3s ease-in-out;
+    background-color: inherit;
+    cursor: pointer;
+    
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.dataMode .editIconButton{
+    border: 1px solid #ccc;    
+    width: 4vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+.shortInfo .editIconButton:hover{
+    background-color: rgb(231, 231, 231);
+}
+
+.bottomInfo{
+    margin-top: 10px;
+}
+/* *****************************************************************************/
+
+.editMode .optionsButtonGroup{
+    position: static;
+    display: flex;
+    /* width: 60%; */
+    justify-content: space-between;
+}
+
+.editMode .optionsButtonGroup button{
+    display: flex;
+    align-items: center;
+    /* ju */
+}
+
+.deleteIconButton{
+    border: 1px solid rgb(250, 136, 136);
+}
+.saveIconButton{
+    border: 1px solid rgb(118, 179, 99);
+}
+.deleteIconButton:hover{
+    background-color: rgb(240, 203, 203);
+}
+.saveIconButton:hover{
+    background-color: rgb(212, 245, 194);
+}
+
+.textArea{
+    width: 100%;
+}
+
+.imageInput{
+    border: 0;
+}
+
+.optionsButtonGroup{
+    position: absolute;
+}
+
+.confirmDialog button{
+    border: 0;
+    background-color: inherit;
+    outline: 0;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all .2s ease-in;
+}
+.confirmDialog button:hover{
+    background-color: #ccc;
+}
+
+button.dialogRemoveButton:hover{
+    background-color: rgb(240, 203, 203);
+}
+

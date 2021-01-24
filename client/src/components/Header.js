@@ -14,6 +14,9 @@ export default function Header() {
                     <NavLink to='/heroes' style={{paddingLeft: '3vw'}}>
                         <Typography variant="h6" noWrap>Heroes</Typography>
                     </NavLink>
+                    <NavLink to='/create_hero' style={{paddingLeft: '3vw'}}>
+                        <Typography variant="h6" noWrap>Add new Hero</Typography>
+                    </NavLink>
                 </Toolbar>
             </AppBar>
         </>

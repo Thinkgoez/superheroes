@@ -44,11 +44,32 @@ export function* deleteHeroSaga(action) {
         yield put({ type: ACTIONS.REQUEST_ERROR, data: error })
     }
 }
-export function* deleteImageSaga(action) {
+export function* deleteImagesSaga(action) {
     try {
         yield put({ type: ACTIONS.SET_FETCHING_STATUS, data: true })
-        yield call(API.deleteImage, action.data)
-        yield put({ type: ACTIONS.DELETE_IMAGE_SUCCESS, data: action.data})
+        yield call(API.deleteImages, action.data)
+        yield console.log(action.data)
+        yield put({ type: ACTIONS.DELETE_IMAGES_SUCCESS, data: action.data})
+        yield put({ type: ACTIONS.SET_FETCHING_STATUS, data: false })
+    } catch (error) {
+        yield put({ type: ACTIONS.REQUEST_ERROR, data: error })
+    }
+}
+export function* addImageSaga(action) {
+    try {
+        yield put({ type: ACTIONS.SET_FETCHING_STATUS, data: true })
+        yield call(API.addImage, action.data)
+        yield put({ type: ACTIONS.ADD_IMAGE_SUCCESS, data: action.data})
+        yield put({ type: ACTIONS.SET_FETCHING_STATUS, data: false })
+    } catch (error) {
+        yield put({ type: ACTIONS.REQUEST_ERROR, data: error })
+    }
+}
+export function* createHeroSaga(action) {
+    try {
+        yield put({ type: ACTIONS.SET_FETCHING_STATUS, data: true })
+        yield call(API.createHero, action.data)
+        yield put({ type: ACTIONS.CREATE_HERO_SUCCESS, data: action.data})
         yield put({ type: ACTIONS.SET_FETCHING_STATUS, data: false })
     } catch (error) {
         yield put({ type: ACTIONS.REQUEST_ERROR, data: error })

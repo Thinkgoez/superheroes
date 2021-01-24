@@ -5,9 +5,9 @@ import { Paper } from '@material-ui/core'
 
 import { getHero, removeHero, updateHeroData } from '../../redux/reducers/heroReducer'
 import Preloader from '../../components/Preloader/Preloader'
-import MainInfoDataForm from './MainInfo/MainInfoDataForm'
-import MainInfoData from './MainInfo/MainInfoData'
-import Gallery from './Gallery/Gallery'
+import MainInfoDataForm from '../../components/MainInfo/MainInfoDataForm/MainInfoDataForm'
+import MainInfoData from '../../components/MainInfo/MainInfoData'
+import Gallery from '../../components/Gallery/Gallery'
 import classes from './HeroInfo.module.css'
 
 
@@ -44,10 +44,14 @@ function MainInfo({ heroInfo, updateHeroData, removeHero }) {
         closeEditMode()
         updateHeroData(data)
     }
+    const handleCancel = (func) => {
+        func()
+        closeEditMode()
+    }
     return (
         <Paper variant="outlined" className={classes.mainInfoBlock}>
             {isEditMode
-                ? <MainInfoDataForm handleSubmit={handleSubmit} heroInfo={heroInfo} handleRemoveHero={handleRemoveHero} />
+                ? <MainInfoDataForm handleCancel={handleCancel} handleSubmit={handleSubmit} heroInfo={heroInfo} handleRemoveHero={handleRemoveHero} />
                 : <MainInfoData openEditMode={openEditMode} heroInfo={heroInfo} />}
         </Paper>
     )

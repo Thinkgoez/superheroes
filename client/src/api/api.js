@@ -22,7 +22,7 @@ const currentHero = {
     superpowers: 'eeeesolar energy absorption and healing factor, solar flare and heat vision, solar invulnerability, flight…',
     catch_phrase: "Batman",
     poster_image: 'https://upload.wikimedia.org/wikipedia/ru/a/a2/Batman_Jim_Lee.jpg',
-    images: [
+    images: Array.from(new Set([
         'https://cdn2.unrealengine.com/Diesel%2Fproductv2%2Fbatman-arkham-knight%2FEGS_WB_Batman_Arkham_Knight_G1_1920x1080_19_0911-1920x1080-1d69e15f00cb5ab57249f208f1f8f45d52cbbc59.jpg?h=1080&resize=1&w=1920',
         'https://cdn2.unrealengine.com/Diesel%2Fproductv2%2Fbatman-arkham-knight%2FEGS_WB_Batman_Arkham_Knight_G1_1920x1080_19_0911-1920x1080-1d69e15f00cb5ab57249f208f1f8f45d52cbbc59.jpg?h=1080&resize=1&w=1920',
         'https://i2.wp.com/batman-news.com/wp-content/uploads/2019/07/Batman-Comic-Generic-07.jpg?fit=1400%2C700&quality=80&strip=info&ssl=1',
@@ -42,7 +42,7 @@ const currentHero = {
         'https://cdn2.unrealengine.com/Diesel%2Fproductv2%2Fbatman-arkham-knight%2FEGS_WB_Batman_Arkham_Knight_G1_1920x1080_19_0911-1920x1080-1d69e15f00cb5ab57249f208f1f8f45d52cbbc59.jpg?h=1080&resize=1&w=1920',
         'https://cdn2.unrealengine.com/Diesel%2Fproductv2%2Fbatman-arkham-knight%2FEGS_WB_Batman_Arkham_Knight_G1_1920x1080_19_0911-1920x1080-1d69e15f00cb5ab57249f208f1f8f45d52cbbc59.jpg?h=1080&resize=1&w=1920',
         'https://i2.wp.com/batman-news.com/wp-content/uploads/2019/07/Batman-Comic-Generic-07.jpg?fit=1400%2C700&quality=80&strip=info&ssl=1',
-    ]
+    ])).reverse()
 }
 
 // const instance = axios.create({
@@ -53,7 +53,8 @@ const currentHero = {
 const API = {
     fetchHeroes: ({ pageNumber, pageSize }) => {
         // return instance.get(`heroes?page=${pageNumber}&count=${pageSize}`)
-        return fakeData
+        const page = (pageNumber * pageSize)
+        return {data: fakeData.slice(page - pageSize, page), totalCount: fakeData.length}
     },
     getHero: ({ id }) => {
         // return instance.get(`heroes?page=${pageNumber}&count=${pageSize}`)
@@ -61,23 +62,40 @@ const API = {
     },
     updateHeroData: (data) => {
         // return instance.get(`heroes?page=${pageNumber}&count=${pageSize}`)
-        console.log(data);
-        return {...currentHero, ...data}
+        return { ...currentHero, ...data }
     },
     deleteHero: (data) => {
         // return instance.delete(`hero/${data}`)
         // console.log(data);
         // const newData = fakeData.filter(hero => hero.id !== data)
         // return newData
-        fakeData = fakeData.filter(hero=> hero.id !== data)
+        fakeData = fakeData.filter(hero => hero.id !== data)
         return true
     },
-    deleteImage: (data) => {
+    deleteImages: (data) => {
         // return instance.delete(`hero/${data}`)
         // console.log(data);
         // const newData = fakeData.filter(hero => hero.id !== data)
         // return newData
-        fakeData = fakeData.filter(hero=> hero.id !== data)
+        currentHero.images = currentHero.images.filter((image) => !data.includes(image))
+        return true
+    },
+    addImage: (data) => {
+        // return instance.delete(`hero/${data}`)
+        // console.log(data);
+        // const newData = fakeData.filter(hero => hero.id !== data)
+        // return newData
+
+        currentHero.images.push(data)
+        return true
+    },
+    createHero: (data) => {
+        // return instance.delete(`hero/${data}`)
+        // console.log(data);
+        // const newData = fakeData.filter(hero => hero.id !== data)
+        // return newData
+        fakeData.push(data)
+        console.log(fakeData)
         return true
     },
 }

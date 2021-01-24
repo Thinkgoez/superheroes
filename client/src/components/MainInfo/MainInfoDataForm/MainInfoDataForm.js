@@ -1,27 +1,33 @@
-
 import { Formik } from 'formik';
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextareaAutosize, TextField, Typography } from '@material-ui/core';
+import { TextareaAutosize, TextField, Typography } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import CancelIcon from '@material-ui/icons/Cancel';
 
-import classes from './MainInfo.module.css'
-import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 
-function MainInfoDataForm({ heroInfo, handleSubmit, handleRemoveHero }) {
+import classes from '../MainInfo.module.css'
+import DeleteButton from './DeleteButton'
+
+function MainInfoDataForm({ heroInfo, handleCancel, handleSubmit, handleRemoveHero }) {
+    let initialValues = {
+        nickname: heroInfo.nickname,
+        real_name: heroInfo.real_name,
+        catch_phrase: heroInfo.catch_phrase,
+        superpowers: heroInfo.superpowers,
+        origin_description: heroInfo.origin_description,
+        poster_image: heroInfo.poster_image,
+    }
     return (
         <>
             <Formik
-                initialValues={{
-                    nickname: heroInfo.nickname,
-                    real_name: heroInfo.real_name,
-                    catch_phrase: heroInfo.catch_phrase,
-                    superpowers: heroInfo.superpowers,
-                    origin_description: heroInfo.origin_description,
-                    poster_image: heroInfo.poster_image,
-                }}
+                initialValues={initialValues}
                 onSubmit={handleSubmit}
-                children={(props) => <FormikForm heroInfo={heroInfo} handleRemoveHero={handleRemoveHero} {...props} />}
+                children={(props) => <FormikForm
+                    handleCancel={handleCancel}
+                    heroInfo={heroInfo}
+                    handleRemoveHero={handleRemoveHero}
+                    {...props}
+
+                />}
                 className={classes.shortInfo}
             />
 
@@ -36,7 +42,9 @@ function FormikForm({
     handleSubmit,
     heroInfo,
     setFieldValue,
-    handleRemoveHero
+    handleReset,
+    handleRemoveHero,
+    handleCancel
 }) {
     const handleFileInputChange = (event) => {
         let reader = new FileReader();
@@ -44,6 +52,9 @@ function FormikForm({
             setFieldValue("poster_image", reader.result);
         }
         reader.readAsDataURL(event.currentTarget.files[0]);
+    }
+    const cancelHandler = (e) => {
+        handleCancel(handleReset)
     }
     return (
         <form onSubmit={handleSubmit} className={classes.editMode}>
@@ -58,6 +69,7 @@ function FormikForm({
                 <div className={classes.shortInfo}>
                     <div className={classes.optionsButtonGroup}>
                         <DeleteButton nickname={heroInfo.nickname} handleRemoveHero={handleRemoveHero} />
+                        <button onClick={cancelHandler}><CancelIcon />cancel</button>
                         <button type='submit' className={classes.saveIconButton}><SaveIcon />save</button>
                     </div>
 
@@ -80,7 +92,8 @@ function FormikForm({
                             />
                         </span>
                         <span><Typography variant='h6'><b>Catch phrase: </b></Typography>
-                            <TextField
+                            <TextareaAutosize
+                                className={classes.textArea}
                                 name='catch_phrase'
                                 onChange={handleChange}
                                 onBlur={handleBlur}
@@ -115,46 +128,5 @@ function FormikForm({
     )
 }
 
-function DeleteButton({ nickname, handleRemoveHero }) {
-    const [open, setOpen] = useState(false);
-    const history = useHistory()
-    console.log(history);
-
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
-
-    const removeHero = () => {
-        handleRemoveHero()
-        history.push('/heroes')
-    }
-    return (
-        <>
-            <button type='button' onClick={handleClickOpen} className={classes.deleteIconButton}><DeleteForeverIcon />delete hero</button>
-            <Dialog
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-                className={classes.confirmDialog}
-            >
-                <DialogTitle id="alert-dialog-title">{"Remove this superhero?"}</DialogTitle>
-                <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        {nickname} will be removed, you won't be able to recover data.
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <button onClick={handleClose} autoFocus>Cancel</button>
-                    <button onClick={removeHero} className={classes.dialogRemoveButton}>Remove</button>
-                </DialogActions>
-            </Dialog>
-        </>
-    )
-}
 
 export default MainInfoDataForm
