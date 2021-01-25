@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom';
 
 import { createHero } from '../../redux/reducers/heroReducer'
 import classes from './CreateHero.module.css'
+import notFoundImage from '../../static/notfound.png'
 
 function CreateHero({ createHero }) {
     const history = useHistory()
@@ -55,18 +56,24 @@ function FormikForm({
         reader.readAsDataURL(event.currentTarget.files[0]);
     }
     return (
-        <form onSubmit={handleSubmit} className={classes.editMode}>
+        <form
+        onSubmit={handleSubmit}
+        className={classes.editMode}
+        encType='multipart/form-data'
+        >
             <div className={classes.topInfo}>
                 <div className={classes.imageWrapper}>
-                    <img className={classes.posterImage} src={values.poster_image || 'https://запорожье.ремонт-холодильников.org/wp-content/uploads/2014/09/default-placeholder.png'} />
+                    <img className={classes.posterImage} src={values.poster_image || notFoundImage} />
                     <input className={classes.imageInput} type='file'
                         name='poster_image'
                         onChange={handleFileInputChange}
+                        accept="image/*"
+                        required
                     />
                 </div>
                 <div className={classes.shortInfo}>
                     <div className={classes.optionsButtonGroup}>
-                        <button onClick={handleReset}><CancelIcon />cancel</button>
+                        <button onClick={handleReset}><CancelIcon />clear</button>
                         <button type='submit' className={classes.saveIconButton}><AddBoxIcon />add new hero</button>
                     </div>
 
@@ -76,6 +83,7 @@ function FormikForm({
                             onChange={handleChange}
                             onBlur={handleBlur}
                             value={values.nickname}
+                            required
                         />
                     </span>
 
@@ -86,6 +94,7 @@ function FormikForm({
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.real_name}
+                                required
                             />
                         </span>
                         <span><Typography variant='h6'><b>Catch phrase: </b></Typography>
@@ -95,6 +104,7 @@ function FormikForm({
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.catch_phrase}
+                                required
                             />
                         </span>
                         <span><Typography variant='body1'><b>Superpowers: </b></Typography>
@@ -104,6 +114,7 @@ function FormikForm({
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.superpowers}
+                                required
                             />
                         </span>
                     </div>
@@ -117,6 +128,7 @@ function FormikForm({
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.origin_description}
+                        required
                     />
                 </span>
             </div>

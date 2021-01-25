@@ -7,13 +7,16 @@ import CONSTS from '../../constants'
 import classes from './Gallery.module.css'
 import { Checkbox } from '@material-ui/core';
 
-function GalleryList({ isEditMode, images, handleOpenImage, checkRemoveImage }) {
+function GalleryList({ isEditMode, images, handleOpenImage, checkRemoveImage , newImage}) {
     let [isShowMore, setShowMore] = useState(false)
+    let showImages = images
+    if (newImage) showImages.unshift(newImage)
+    if (!images || images.length === 0) return <>There are no images</>
     let imagesLength = CONSTS.COUNT_VISIBLE_ITEMS
 
     if (images.length <= CONSTS.COUNT_VISIBLE_ITEMS || isShowMore) { imagesLength = images.length }
 
-    let visibleImages = images.slice(0, imagesLength)
+    let visibleImages = showImages.slice(0, imagesLength)
     return (
         <>
             <ul className={classes.flexList}>
@@ -30,7 +33,7 @@ function GalleryList({ isEditMode, images, handleOpenImage, checkRemoveImage }) 
                             />
                             {isEditMode
                                 ?
-                                    <CheckBoxInput image={image} checkRemoveImage={checkRemoveImage} />
+                                <CheckBoxInput image={image} checkRemoveImage={checkRemoveImage} />
                                 : ''
                             }
                         </li>
@@ -59,14 +62,13 @@ function ButtonMore({ imageLength, isShowMore, setShowMore }) {
 function CheckBoxInput({ image, checkRemoveImage }) {
     const handleChange = (event) => {
         checkRemoveImage(event.target.value, event.target.checked)
-        console.log(event.target.value)
     }
     return (
         <div className={classes.deleteIconWrapper}>
             <Checkbox
                 onChange={handleChange}
                 value={image}
-                icon={<DeleteIcon className={classes.deleteIcon} style={{color: 'white'}} fontSize="small" />}
+                icon={<DeleteIcon className={classes.deleteIcon} style={{ color: 'white' }} fontSize="small" />}
                 checkedIcon={<DeleteIcon className={classes.deleteIcon} fontSize="small" />}
                 name="checkedI"
             /></div>

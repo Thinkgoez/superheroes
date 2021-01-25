@@ -29,14 +29,14 @@ function HeroCard({ data }) {
     return (
         <div className={classes.gridRoot}>
             {data.map(hero => (
-                <Card className={classes.gridItem} key={hero.id}>
+                <Card className={classes.gridItem} key={hero._id}>
                     <div className={classes.cardActionArea} style={{ backgroundImage: `url(${hero.poster_image})` }}>
                         <div className={classes.cardContent}>
                             <Typography gutterBottom variant="h5" component="h2">{hero.nickname}</Typography>
                         </div>
                     </div>
                     <div className={classes.cardActions}>
-                        <NavLink to={`/hero/${hero.id}`} className={classes.cardLink}>Learn More</NavLink>
+                        <NavLink to={`/hero/${hero._id}`} className={classes.cardLink}>Learn More</NavLink>
                     </div>
                 </Card>
             ))}

@@ -64,6 +64,8 @@ function FormikForm({
                     <input className={classes.imageInput} type='file'
                         name='poster_image'
                         onChange={handleFileInputChange}
+                        accept="image/*"
+                        required
                     />
                 </div>
                 <div className={classes.shortInfo}>
@@ -79,6 +81,7 @@ function FormikForm({
                             onChange={handleChange}
                             onBlur={handleBlur}
                             value={values.nickname}
+                            required
                         />
                     </span>
 
@@ -89,6 +92,7 @@ function FormikForm({
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.real_name}
+                                required
                             />
                         </span>
                         <span><Typography variant='h6'><b>Catch phrase: </b></Typography>
@@ -98,6 +102,7 @@ function FormikForm({
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.catch_phrase}
+                                required
                             />
                         </span>
                         <span><Typography variant='body1'><b>Superpowers: </b></Typography>
@@ -107,6 +112,7 @@ function FormikForm({
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.superpowers}
+                                required
                             />
                         </span>
                     </div>
@@ -120,6 +126,7 @@ function FormikForm({
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.origin_description}
+                        required
                     />
                 </span>
             </div>

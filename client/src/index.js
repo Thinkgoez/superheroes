@@ -10,12 +10,10 @@ import App from './App';
 
 
 ReactDOM.render(
-    <React.StrictMode>
         <Provider store={store}>
             <Router>
                 <App />
             </Router>
-        </Provider>
-    </React.StrictMode>,
+        </Provider>,
     document.getElementById('root')
 );

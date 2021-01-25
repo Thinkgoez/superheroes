@@ -7,7 +7,7 @@ import classes from './Gallery.module.css'
 import GalleryList from './GalleryList'
 import ButtonGroup from './ButtonGroup'
 
-function Gallery({ images, removeImages, addNewImage }) {
+function Gallery({ images, removeImages, addNewImage, heroID }) {
     const [open, setOpen] = useState(false);
     const [newImage, setImage] = useState(null);
     const [isEditMode, setEditMode] = useState(false);
@@ -30,15 +30,12 @@ function Gallery({ images, removeImages, addNewImage }) {
         setEditMode(true)
     }
     const handleSave = () => {
-        console.log('saving new image...') //
-        if (newImage) addNewImage(newImage)
-        removeImages(deleteImages)
-        console.log('removing images...') //
+        if (newImage) addNewImage(heroID, newImage)
+        if(deleteImages.length !== 0) removeImages(heroID, deleteImages)
         setEditMode(false)
     }
     const handleCancel = () => {
         setEditMode(false)
-        console.log('canceling...')
         setImage(null)
         deleteImages = []
     }
@@ -55,11 +52,13 @@ function Gallery({ images, removeImages, addNewImage }) {
                     setOpenEditMode={setOpenEditMode}
                 />
             </div>
+            
             <GalleryList
                 isEditMode={isEditMode}
                 images={images}
                 handleOpenImage={handleOpenCurrentImage}
                 checkRemoveImage={checkRemoveImage}
+                newImage={newImage}
             />
             <Dialog
                 disableScrollLock
@@ -75,7 +74,8 @@ function Gallery({ images, removeImages, addNewImage }) {
 
 
 const mStateToProps = (state) => ({
-    images: state.heroes.currentHero.images
+    images: state.heroes.currentHero.images,
+    heroID: state.heroes.currentHero._id
 })
 
 export default connect(mStateToProps, { removeImages, addNewImage })(Gallery)

@@ -10,7 +10,7 @@ function OptionsButtons({ setOpenEditMode, isEditMode, handleSave, setImage, han
     const InputFile = () => (
         <>
             <label htmlFor='file'><span className={classes.editIconButton}><AddCircleIcon />add</span></label>
-            <input id='file' type='file' style={{ display: 'none' }} onChange={handleFileInputChange} />
+            <input accept="image/*" id='file' type='file' style={{ display: 'none' }} onChange={handleFileInputChange} />
         </>
     )
     

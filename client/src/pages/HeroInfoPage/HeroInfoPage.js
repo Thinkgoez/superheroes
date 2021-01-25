@@ -15,21 +15,21 @@ function HeroInfoPage({ getCurrentHero, currentHero, isFetching, updateHeroData,
     const { id } = useParams()
 
     useEffect(() => {
-        if (!currentHero) getCurrentHero(id)
+        if (!currentHero || id !== currentHero._id) getCurrentHero(id)
     }, [currentHero, id, getCurrentHero])
 
     if (isFetching || !currentHero) return <Preloader />
     return (
         <div className={classes.root}>
-            <MainInfo heroInfo={currentHero} updateHeroData={updateHeroData} removeHero={removeHero} />
-            <Gallery images={currentHero.images} className={classes.gallery}/>
+            <MainInfo heroInfo={currentHero} updateHeroData={(data) => updateHeroData(id, data)} removeHero={removeHero} />
+            <Gallery images={currentHero.images} className={classes.gallery} />
         </div>
     )
 }
 
 function MainInfo({ heroInfo, updateHeroData, removeHero }) {
     const [isEditMode, setEditMode] = useState(false)
-    
+
     const openEditMode = () => {
         setEditMode(true)
     }
@@ -38,7 +38,7 @@ function MainInfo({ heroInfo, updateHeroData, removeHero }) {
     }
 
     const handleRemoveHero = () => {
-        removeHero(heroInfo.id)
+        removeHero(heroInfo._id)
     }
     const handleSubmit = (data) => {
         closeEditMode()
@@ -51,7 +51,12 @@ function MainInfo({ heroInfo, updateHeroData, removeHero }) {
     return (
         <Paper variant="outlined" className={classes.mainInfoBlock}>
             {isEditMode
-                ? <MainInfoDataForm handleCancel={handleCancel} handleSubmit={handleSubmit} heroInfo={heroInfo} handleRemoveHero={handleRemoveHero} />
+                ? <MainInfoDataForm
+                    handleCancel={handleCancel}
+                    handleSubmit={handleSubmit}
+                    heroInfo={heroInfo}
+                    handleRemoveHero={handleRemoveHero}
+                />
                 : <MainInfoData openEditMode={openEditMode} heroInfo={heroInfo} />}
         </Paper>
     )
@@ -62,4 +67,10 @@ const mapStateToProps = (state) => ({
     isFetching: state.heroes.isFetching
 })
 
-export default connect(mapStateToProps, { getCurrentHero: getHero, updateHeroData, removeHero })(HeroInfoPage)
+export default connect(mapStateToProps,
+    {
+        getCurrentHero: getHero,
+        updateHeroData,
+        removeHero,
+    }
+)(HeroInfoPage)

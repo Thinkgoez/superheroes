@@ -73,17 +73,6 @@
     padding: 10px;
 }
 
-.dataMode .editIconButton{
-    border: 1px solid #ccc;    
-    width: 4vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-}
-.shortInfo .editIconButton:hover{
-    background-color: rgb(231, 231, 231);
-}
 
 .bottomInfo{
     margin-top: 10px;
@@ -103,14 +92,8 @@
     /* ju */
 }
 
-.deleteIconButton{
-    border: 1px solid rgb(250, 136, 136);
-}
 .saveIconButton{
     border: 1px solid rgb(118, 179, 99);
-}
-.deleteIconButton:hover{
-    background-color: rgb(240, 203, 203);
 }
 .saveIconButton:hover{
     background-color: rgb(212, 245, 194);
@@ -127,21 +110,3 @@
 .optionsButtonGroup{
     position: absolute;
 }
-
-.confirmDialog button{
-    border: 0;
-    background-color: inherit;
-    outline: 0;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 10px;
-    transition: all .2s ease-in;
-}
-.confirmDialog button:hover{
-    background-color: #ccc;
-}
-
-button.dialogRemoveButton:hover{
-    background-color: rgb(240, 203, 203);
-}
-
